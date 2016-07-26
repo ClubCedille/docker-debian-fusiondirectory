@@ -1,7 +1,7 @@
 FROM clubcedille/debian-supervisord
 
 # Use latest package on master branch
-ENV FUSIONDIRECTORY_DEB_PKG_VERSION="" \
+ENV FUSIONDIRECTORY_DEB_PKG_VERSION="*" \
     SLDAP_DOMAIN=example.com \
     SLDAP_PASSWORD=toor \
     FUSIONDIRECTORY_PASSWORD=toor2 \
