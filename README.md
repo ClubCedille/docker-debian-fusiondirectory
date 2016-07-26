@@ -10,5 +10,5 @@ docker-compose up
 
 ## TODO
 
-- Having ldap database in Docker volume.
+- Put ldap database in Docker volume.
 - Add more options on this Docker image.
