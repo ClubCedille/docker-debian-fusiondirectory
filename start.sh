@@ -15,15 +15,25 @@ export LDAP_DOMAIN_DC="dc=$(echo ${SLDAP_DOMAIN} | sed  's/\./,dc=/g')"
 
 envsubst < /fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
 
+# Don't quit the next loop on cat error
+set +e
 
-# Wait tcp connection to ldap server
+echo "Wait tcp connection to ldap server"
 while [  ! cat < /dev/tcp/${LDAP_SERVER}/386 ]; do
     sleep 1
 done
 
+# Reactivate crash on error
+set -e
 
 if [ ! -e "/etc/fusiondirectory/fusionready" ]; then
+
     yes Yes | fusiondirectory-setup --check-config
+    echo "Inject some Fusion directory configurations like :
+- Fusion directory administrator account
+- Various Fusion directory defaut configurations
+- Group OU : ou=groups=${SLDAP_DOMAIN}
+- Users OU : ou=peoples=${SLDAP_DOMAIN}"
     fusiondirectory-setup --yes --check-ldap << EOF
 admin
 $FUSIONDIRECTORY_PASSWORD
@@ -32,4 +42,6 @@ EOF
     touch /etc/fusiondirectory/fusionready
 fi
 
+echo "Start Apache/php to reach Fusiondirectory virtualhost on :
+http://<url>/fusiondirectory"
 gosu www-data sh -c ". /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND"
