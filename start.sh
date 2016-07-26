@@ -26,7 +26,7 @@ EOF
 fi
 
 # Wait tcp connection to ldap server
-while [  cat < /dev/tcp/${LDAP_SERVER}/386 ]; do
+while [  ! cat < /dev/tcp/${LDAP_SERVER}/386 ]; do
     sleep 1
 done
 
