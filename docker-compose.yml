@@ -1,7 +1,7 @@
 version: '2'
 services:
   fusiondirectory:
-    image: clubcedille/debian-fusiondirectory:latest
+    image: clubcedille/debian-fusiondirectory:1.0.14
     # build: .
     restart: on-failure:5
     environment:
