@@ -3,7 +3,7 @@ FusionDirectory docker image
 
 ## Quickstart
 
-git clone https://github.com/clubcedille/docker-debian-fusiondirectory.git
+git clone -b 1.0.14 https://github.com/clubcedille/docker-debian-fusiondirectory.git
 
 docker-compose up
 
