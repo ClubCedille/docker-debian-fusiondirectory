@@ -1,5 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
+
+# to manage backgroundjob during loop with sigint and sigterm
+trap "exit 1" INT TERM EXIT
 
 if [ $LDAP_SERVER == "configure-me"]
 then
@@ -7,7 +10,7 @@ then
 It must countain the address of your ldap server.
 For example :
 
-docker run -ti -p 10080:80  -e LDAP_SERVER= fusiondirectory"
+docker run -ti -p 10080:80  -e LDAP_SERVER=<ldap_server_url> fusiondirectory"
     exit 127
 fi
 
@@ -19,20 +22,24 @@ envsubst < /fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
 set +e
 
 echo "Wait tcp connection to ldap server"
-for i in {0..10}
+for i in {0..60}
 do
-    /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  ldap://${SLDAP_DOMAIN}:389/${LDAP_DOMAIN_DC} 2>/dev/null
+    /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  ldap://${LDAP_SERVER}:389/${LDAP_DOMAIN_DC} 2>/dev/null
+    is_slapd_running=$?
+
+    /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  http://${LDAP_SERVER}:1337 2>/dev/null
     is_ldap_ready=$?
 
-    if (( "${is_ldap_ready}"  == 0 )); then
+    if (( "${is_slapd_running}" == 0 && "${is_ldap_ready}" == 0 )); then
         break 1;
     else
-        if (( i  == 10 )); then
+        if (( "$i"  == 10 )); then
             echo "Ldap server dont respond after $i seconds"
             exit 1 ;
         fi;
     fi;
     sleep 1
+    echo .
 done
 
 # Reactivate crash on error
