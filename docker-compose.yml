@@ -1,0 +1,24 @@
+version: '2'
+services:
+  fusiondirectory:
+    image: clubcedille/debian-fusiondirectory:latest
+    # build: .
+    restart: on-failure:5
+    environment:
+      - "LDAP_SERVER=ldap"
+    depends_on:
+      - ldap
+    ports:
+      - "10080:10080"
+    extends:
+      service: ldap-variables
+      file: config/compose-variable.yml
+
+  ldap:
+    image: clubcedille/debian-ldap:latest
+    restart: on-failure:1
+    ports:
+      - "389:389"
+    extends:
+      service: ldap-variables
+      file: config/compose-variable.yml

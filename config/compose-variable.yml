@@ -1,0 +1,8 @@
+version: "2"
+services:
+  ldap-variables:
+    environment:
+    - "SLDAP_ROOTPASS=toor"
+    - "SLDAP_ORGANISATION=Acme Widgets Inc."
+    - "SLDAP_DOMAIN=example.com"
+    - "FUSIONDIRECTORY_PASSWORD=toor2"
