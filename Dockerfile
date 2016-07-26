@@ -9,9 +9,6 @@ ENV FUSIONDIRECTORY_DEB_PKG_VERSION=1.0.14-1 \
 EXPOSE 10080
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    export LC_ALL=es_ES.UTF-8 && \
-    export LANG=C && \
-    export LANGUAGE=C && \
     apt-get update && \
     apt-get install -y --no-install-recommends gnupg && \
     gpg --keyserver keys.gnupg.net --recv-keys E184859262B4981F && \
