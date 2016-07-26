@@ -25,5 +25,9 @@ EOF
     touch /etc/fusiondirectory/fusionready
 fi
 
+# Wait tcp connection to ldap server
+while [  cat < /dev/tcp/${LDAP_SERVER}/386 ]; do
+    sleep 1
+done
 
 gosu www-data sh -c ". /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND"
