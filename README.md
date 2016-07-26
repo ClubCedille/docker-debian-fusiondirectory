@@ -1,9 +1,14 @@
 # fusiondirectory
 FusionDirectory docker image
 
-docker run -td -v /root/etc/ldap:/etc/ldap -e SLAPD_PASSWORD="xxxxxxxxxxx" -e SLAPD_DOMAIN=xxxxxxxxx.xx -e SLAPD_ORGANIZATION=xxxxx \
-	--name ldap oondeo/fusiondirectory-ldap
+## Quickstart
 
-docker run -td -e LDAP_DOMAIN=xxxx -e LDAP_PASSWORD="xxxxxx" -e FUSIONDIRECTORY_PASSWORD="xxxxxx" --link ldap:ldap \
-	-e VIRTUAL_HOST="ldap.domain.co" -e VIRTUAL_PORT=80 -e LETSENCRYPT_HOST="ldap.domain.co" -e LETSENCRYPT_EMAIL="info@oondeo.es" \
-	--name fusiondirectory oondeo/fusiondirectory
+git clone https://github.com/clubcedille/docker-debian-fusiondirectory.git
+
+docker-compose up
+
+
+## TODO
+
+- Having ldap database in Docker volume.
+- Add more options on this Docker image.
