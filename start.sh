@@ -19,7 +19,8 @@ envsubst < /fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
 set +e
 
 echo "Wait tcp connection to ldap server"
-while [  ! cat < /dev/tcp/${LDAP_SERVER}/386 ]; do
+
+while [ /usr/bin/curl -v -k  ldap://${SLDAP_DOMAIN}:389/${LDAP_DOMAIN_DC} ]; do
     sleep 1
 done
 
