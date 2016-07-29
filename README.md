@@ -16,9 +16,11 @@ FusionDirectory docker image
 
 ## Quickstart
 
+```
 git clone https://github.com/clubcedille/docker-debian-fusiondirectory.git
-
+cd docker-debian-fusiondirectory/
 docker-compose up
+```
 
 
 ## TODO
