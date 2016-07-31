@@ -15,7 +15,7 @@ services:
       file: config/compose-variable.yml
 
   ldap:
-    image: clubcedille/debian-ldap:latest
+    image: clubcedille/debian-ldap:1.0.14
     restart: on-failure:1
     ports:
       - "389:389"
