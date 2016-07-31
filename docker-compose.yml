@@ -17,6 +17,9 @@ services:
   ldap:
     image: clubcedille/debian-ldap:latest
     restart: on-failure:1
+    volumes:
+    - /srv/ldap/var/lib/ldap:/var/lib/ldap:rw
+    - /srv/ldap/etc/ldap/slapd.d:/etc/ldap/slapd.d:rw
     ports:
       - "389:389"
     extends:
