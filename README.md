@@ -9,8 +9,11 @@ cd docker-debian-fusiondirectory/
 docker-compose up
 ```
 
+Then, it's possible to access on Fusion Directory web ui on localhost :
+
+http://127.0.0.1:10080/fusiondirectory
 
 ## TODO
 
-- Having ldap database in Docker volume.
+- [x] Put ldap database in Docker volume.
 - Add more options on this Docker image.
