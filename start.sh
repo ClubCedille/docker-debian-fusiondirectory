@@ -62,8 +62,8 @@ EOF
 fi
 
 # Remove password as environment variable
-SLDAP_ROOTPASS=""
-FUSIONDIRECTORY_PASSWORD=""
+export SLDAP_ROOTPASS=""
+export FUSIONDIRECTORY_PASSWORD=""
 
 echo "Start Apache/php to reach Fusiondirectory virtualhost on :
 http://<url>/fusiondirectory"
