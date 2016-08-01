@@ -61,6 +61,10 @@ EOF
     touch /etc/fusiondirectory/fusionready
 fi
 
+# Remove password as environment variable
+SLDAP_ROOTPASS=""
+FUSIONDIRECTORY_PASSWORD=""
+
 echo "Start Apache/php to reach Fusiondirectory virtualhost on :
 http://<url>/fusiondirectory"
 gosu www-data sh -c ". /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND"
