@@ -1,0 +1,5 @@
+---
+- name: Configure docker-compose
+  docker_service:
+    project_src: /srv/docker-debian-fusiondirectory
+    state: present

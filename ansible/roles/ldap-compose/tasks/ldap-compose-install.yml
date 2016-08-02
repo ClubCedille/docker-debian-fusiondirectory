@@ -1,0 +1,13 @@
+# Example read-write git checkout from github
+
+- name: Install git
+  package: name=git  state=latest
+
+- debug: var=ldap.compose.branch
+
+- name: Clone docker-debian-fusiondirectory git repository
+  git:
+    repo="{{ ldap.compose.git }}"
+    dest="/srv/docker-debian-fusiondirectory"
+    version={{ item }}
+  with_items: "{{ ldap.compose.branch }}"
