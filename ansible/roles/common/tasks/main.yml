@@ -1,0 +1,28 @@
+---
+- name: Install common packages
+  package: name={{ item }} state=latest
+  with_items:
+    - git
+    - python-yaml
+    - python-urllib3
+
+- name: Get python-pip depedencies
+  shell: apt-cache depends  'python-pip' | awk '/Depends:/{print$2}' | grep -v "<"
+  register: pipdeps
+- debug: var=pipdeps.stdout_lines
+
+# Docker-py requirement
+
+- name: Install pip depedencies to get latest available pip version as required for docker-py
+  package: name={{ item }} state=latest
+  with_items:
+    - "{{ pipdeps.stdout_lines | list }}"
+
+- name: Install pip from official eggs packages
+  command: easy_install pip
+
+- name: Install docker-compose from latest stable pip available
+  pip:
+     name: docker-compose
+     state: latest
+     # version: 1.7.1
