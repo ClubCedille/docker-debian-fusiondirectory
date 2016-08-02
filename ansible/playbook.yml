@@ -1,4 +1,4 @@
-- hosts: ldap-server
+- hosts: ldap
   roles:
     - { role: common }
     - { role: dochang.docker }
