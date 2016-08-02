@@ -26,7 +26,25 @@ Then, it's possible to access on Fusion Directory web ui on localhost :
 
 http://127.0.0.1:10080/fusiondirectory
 
+
+## Deploying this project using Ansible
+
+```
+git clone https://github.com/clubcedille/docker-debian-fusiondirectory.git
+cd docker-debian-fusiondirectory/ansible
+```
+
+Configure hosts : inventories/production/hosts
+
+Configure admin username/password : inventories/production/group_vars/all
+
+Install project depedencies : `ansible-galaxy install -r requirements.yml`
+
+Run the project : `ansible-playbook playbook.yml`
+
+
 ## TODO
 
 - [x] Put ldap database in Docker volume.
 - Add more options on this Docker image.
+- Test more deployer for Debian using ansible
