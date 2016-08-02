@@ -1,4 +1,16 @@
 # -*- mode: gitignore; -*-
+
+# Ansible base .gitignore
+*.retry
+
+# Ignore import for ansible galaxy
+*/.imported_roles/*
+
+# But not this file...
+*/.imported_roles/.keep
+
+
+# Emacs / vim
 *~
 \#*\#
 /.emacs.desktop
