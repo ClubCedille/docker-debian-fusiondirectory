@@ -1,4 +1,4 @@
-- hosts: cedille-ldap
+- hosts: ldap-server
   roles:
     - { role: common }
     - { role: dochang.docker }
