@@ -27,10 +27,7 @@ do
     /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  ldap://${LDAP_SERVER}:389/${LDAP_DOMAIN_DC} 2>/dev/null
     is_slapd_running=$?
 
-    /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  http://${LDAP_SERVER}:1337 2>/dev/null
-    is_ldap_ready=$?
-
-    if (( "${is_slapd_running}" == 0 && "${is_ldap_ready}" == 0 )); then
+    if (( "${is_slapd_running}" == 0 )); then
         break 1;
     else
         if (( "$i"  == 10 )); then
