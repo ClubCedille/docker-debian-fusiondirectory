@@ -60,17 +60,17 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         fusiondirectory-plugin-mixedgroups=${FUSIONDIRECTORY_DEB_PKG_VERSION}* && \
         apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir /opt/fusiondirectory
+WORKDIR /opt/fusiondirectory
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
-COPY fusiondirectory.conf /fusiondirectory.conf
-COPY start.sh /start.sh
-COPY config.sh /config.sh
+COPY fusiondirectory.conf /opt/fusiondirectory/fusiondirectory.conf
+COPY /scripts /opt/fusiondirectory/bin
 
-
-
-RUN     sed -i 's/Listen.*80/Listen 10080/g' /etc/apache2/ports.conf && \
-        mkdir -p /var/log/apache2 /var/run/apache2 && \
-        /config.sh && \
-        chown -R www-data:www-data /etc/fusiondirectory /var/log/apache2 /var/run/apache2
+RUN sed -i 's/Listen.*80/Listen 10080/g' /etc/apache2/ports.conf && \
+    echo 'Include external-conf.d/*.conf' >> /etc/apache2/apache2.conf && \
+    mkdir -p /var/log/apache2 /var/run/apache2 && \
+    ./bin/config.sh && \
+    chown -R www-data:www-data /etc/fusiondirectory /var/log/apache2 /var/run/apache2
 
 #setcap 'cap_net_bind_service=+ep' /usr/sbin/apache2
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["./bin/start.sh"]

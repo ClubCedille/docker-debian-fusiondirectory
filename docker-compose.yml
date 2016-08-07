@@ -16,6 +16,7 @@ services:
 
   ldap:
     image: clubcedille/debian-ldap:latest
+    # build: ../ldap
     restart: on-failure:1
     volumes:
     - /srv/ldap/var/lib/ldap:/var/lib/ldap:rw
