@@ -16,7 +16,7 @@ fi
 
 export LDAP_DOMAIN_DC="dc=$(echo ${SLDAP_DOMAIN} | sed  's/\./,dc=/g')"
 
-envsubst < /fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
+envsubst < /opt/fusiondirectory/fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
 
 # Don't quit the next loop on cat error
 set +e
