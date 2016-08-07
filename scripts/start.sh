@@ -30,7 +30,7 @@ do
     if (( "${is_slapd_running}" == 0 )); then
         break 1;
     else
-        if (( "$i"  == 10 )); then
+        if (( "$i"  == 30 )); then
             echo "Ldap server dont respond after $i seconds"
             exit 1 ;
         fi;
