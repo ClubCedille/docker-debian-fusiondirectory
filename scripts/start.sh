@@ -22,7 +22,7 @@ envsubst < /fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
 set +e
 
 echo "Wait tcp connection to ldap server"
-for i in {0..60}
+for i in {0..30}
 do
     /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  ldap://${LDAP_SERVER}:389/${LDAP_DOMAIN_DC} 2>/dev/null
     is_slapd_running=$?
