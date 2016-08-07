@@ -1,0 +1,2 @@
+[ldap]
+example.com ansible_user=myuser ansible_become=yes ansible_port=22

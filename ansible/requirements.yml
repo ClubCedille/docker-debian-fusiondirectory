@@ -1,0 +1,3 @@
+# Public role on github
+- name: dochang.docker
+  src: https://github.com/dochang/ansible-role-docker.git

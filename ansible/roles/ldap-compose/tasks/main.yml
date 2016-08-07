@@ -1,0 +1,4 @@
+---
+- include: check_vars.yml tags=ldap-compose,ldap-compose:check,check
+- include: ldap-compose-install.yml tags=ldap-compose,ldap-compose:install
+- include: ldap-compose-config.yml tags=ldap-compose,ldap-compose:config

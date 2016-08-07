@@ -1,0 +1,13 @@
+---
+SLDAP_ROOTPASS: "toor"
+
+SLDAP_ORGANISATION: "Acme Widgets Inc."
+
+SLDAP_DOMAIN: "example.com"
+
+FUSIONDIRECTORY_PASSWORD: "toor2"
+
+ldap:
+  compose:
+    git: https://github.com/ClubCedille/docker-debian-fusiondirectory.git
+    branch: "1.0.14"

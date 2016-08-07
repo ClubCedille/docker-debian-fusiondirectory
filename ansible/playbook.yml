@@ -1,0 +1,5 @@
+- hosts: ldap
+  roles:
+    - { role: common }
+    - { role: dochang.docker }
+    - { role: ldap-compose }

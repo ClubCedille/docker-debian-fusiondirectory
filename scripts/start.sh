@@ -4,6 +4,10 @@ set -eu
 # to manage backgroundjob during loop with sigint and sigterm
 trap "exit 1" INT TERM EXIT
 
+if (( "${ENABLE_SSL}" == 1 )); then
+    a2enmod ssl
+fi;
+
 if [ $LDAP_SERVER == "configure-me"]
 then
     echo "Variable named LDAP_SERVER is not set.
@@ -16,24 +20,21 @@ fi
 
 export LDAP_DOMAIN_DC="dc=$(echo ${SLDAP_DOMAIN} | sed  's/\./,dc=/g')"
 
-envsubst < /fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
+envsubst < /opt/fusiondirectory/fusiondirectory.conf > /etc/fusiondirectory/fusiondirectory.conf
 
 # Don't quit the next loop on cat error
 set +e
 
 echo "Wait tcp connection to ldap server"
-for i in {0..60}
+for i in {0..30}
 do
     /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  ldap://${LDAP_SERVER}:389/${LDAP_DOMAIN_DC} 2>/dev/null
     is_slapd_running=$?
 
-    /usr/bin/curl --fail  --silent -k --connect-timeout 2 --output /dev/null  http://${LDAP_SERVER}:1337 2>/dev/null
-    is_ldap_ready=$?
-
-    if (( "${is_slapd_running}" == 0 && "${is_ldap_ready}" == 0 )); then
+    if (( "${is_slapd_running}" == 0 )); then
         break 1;
     else
-        if (( "$i"  == 10 )); then
+        if (( "$i"  == 30 )); then
             echo "Ldap server dont respond after $i seconds"
             exit 1 ;
         fi;
