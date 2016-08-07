@@ -68,6 +68,7 @@ COPY /scripts /opt/fusiondirectory/bin
 
 RUN sed -i 's/Listen.*80/Listen 10080/g' /etc/apache2/ports.conf && \
     echo 'Include external-conf.d/*.conf' >> /etc/apache2/apache2.conf && \
+    mkdir /etc/apache2/external-conf.d && \
     mkdir -p /var/log/apache2 /var/run/apache2 && \
     ./bin/config.sh && \
     chown -R www-data:www-data /etc/fusiondirectory /var/log/apache2 /var/run/apache2
