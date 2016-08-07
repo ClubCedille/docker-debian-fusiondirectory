@@ -6,3 +6,4 @@ services:
     - "SLDAP_ORGANISATION=Acme Widgets Inc."
     - "SLDAP_DOMAIN=example.com"
     - "FUSIONDIRECTORY_PASSWORD=toor2"
+    - "ENABLE_SSL=0"
