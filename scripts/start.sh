@@ -4,6 +4,10 @@ set -eu
 # to manage backgroundjob during loop with sigint and sigterm
 trap "exit 1" INT TERM EXIT
 
+if (( "${ENABLE_SSL}" == 1 )); then
+    a2enmod ssl
+fi;
+
 if [ $LDAP_SERVER == "configure-me"]
 then
     echo "Variable named LDAP_SERVER is not set.

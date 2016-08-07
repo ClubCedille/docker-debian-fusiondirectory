@@ -5,7 +5,8 @@ ENV FUSIONDIRECTORY_DEB_PKG_VERSION="*" \
     SLDAP_DOMAIN=example.com \
     SLDAP_PASSWORD=toor \
     FUSIONDIRECTORY_PASSWORD=toor2 \
-    LDAP_SERVER=configure-me
+    LDAP_SERVER=configure-me \
+    ENABLE_SSL=0
 
 EXPOSE 10080
 
@@ -67,11 +68,14 @@ COPY fusiondirectory.conf /opt/fusiondirectory/fusiondirectory.conf
 COPY /scripts /opt/fusiondirectory/bin
 
 RUN sed -i 's/Listen.*80/Listen 10080/g' /etc/apache2/ports.conf && \
+    sed -i 's/Listen 443/Listen 10443/g' /etc/apache2/ports.conf && \
     echo 'Include external-conf.d/*.conf' >> /etc/apache2/apache2.conf && \
     mkdir /etc/apache2/external-conf.d && \
     mkdir -p /var/log/apache2 /var/run/apache2 && \
     ./bin/config.sh && \
     chown -R www-data:www-data /etc/fusiondirectory /var/log/apache2 /var/run/apache2
+
+COPY config/httpd-external-conf.d/*  /etc/apache2/external-conf.d/.
 
 #setcap 'cap_net_bind_service=+ep' /usr/sbin/apache2
 ENTRYPOINT ["./bin/start.sh"]
