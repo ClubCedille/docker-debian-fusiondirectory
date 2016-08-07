@@ -46,5 +46,6 @@ Run the project : `ansible-playbook playbook.yml`
 ## TODO
 
 - [x] Put ldap database in Docker volume.
-- Add more options on this Docker image.
-- Test more deployer for Debian using ansible
+- [ ] Add more options on this Docker image.
+- [ ] Test more deployer for Debian using ansible
+- [ ] Document new features
